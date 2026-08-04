@@ -1,1 +1,1 @@
-# NAYANA---Beaut-
+Starter project
