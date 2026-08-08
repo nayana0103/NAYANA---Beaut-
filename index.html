@@ -405,7 +405,7 @@ document.querySelectorAll('.price-row').forEach(function(row) {
     row.style.cursor = 'pointer';
 
     row.addEventListener('click', function() {
-        window.location.href = 'Booking.html';
+        window.location.href = 'Booking.html?service=' + encodeURIComponent(row.querySelector('span').textContent.trim());
     });
 });
 </script>
