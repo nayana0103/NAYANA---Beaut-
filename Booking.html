@@ -184,7 +184,7 @@
           <option>Semi-permanent</option>
 
         </select>
-
+<div id="serviceDetails"></div>
         <label for="date">Date souhaitée</label>
         <input type="date" id="date" required>
 
@@ -220,6 +220,67 @@
   </main>
 
   <script>
+const serviceDetails = {
+  "Beauté des pieds": [
+    ["Beauté des pieds (40 min)", "30 €"],
+    ["Manucure complète + beauté des pieds, soins des cuticules", "46 €"]
+  ],
+
+  "Faux ongles en résine": [
+    ["Avec French", "30 €"],
+    ["Avec vernis simple", "35 €"],
+    ["Avec semi-permanent", "45 €"],
+    ["Baby boomer", "50 €"],
+    ["Remplissage", "20 €"],
+    ["Enlever faux ongles", "10 €"],
+    ["Dessin d’un ongle", "1 €"]
+  ],
+
+  "Manucure": [
+    ["Pose de vernis + limage", "10 €"],
+    ["Manucure simple vernis", "15 €"],
+    ["Manucure simple French", "20 €"]
+  ],
+
+  "Semi-permanent": [
+    ["Vernis couleur", "20 €"],
+    ["French", "25 €"],
+    ["Baby boomer semi-permanent", "28 €"],
+    ["Manucure complète + vernis couleur", "35 €"],
+    ["Manucure complète + vernis French", "40 €"],
+    ["Manucure complète + beauté des pieds", "75 €"],
+    ["Manucure complète + beauté des pieds (French, mains et pieds)", "85 €"],
+    ["Beauté des pieds + vernis couleur", "40 €"],
+    ["Beauté des pieds + French", "45 €"]
+  ]
+};
+
+function showServiceDetails() {
+  const service = document.getElementById("service").value;
+  const box = document.getElementById("serviceDetails");
+
+  box.innerHTML = "";
+
+  if (!service || !serviceDetails[service]) return;
+
+  const title = document.createElement("h3");
+  title.textContent = service;
+  box.appendChild(title);
+
+  serviceDetails[service].forEach(function(item) {
+    const row = document.createElement("div");
+    row.className = "service-detail-row";
+
+    row.innerHTML =
+      "<span>" + item[0] + "</span>" +
+      "<strong>" + item[1] + "</strong>";
+
+    box.appendChild(row);
+  });
+}
+
+document.getElementById("service").addEventListener("change", showServiceDetails);
+
 
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get("service");
@@ -228,7 +289,7 @@
       document.getElementById("service").value =
         decodeURIComponent(serviceParam);
     }
-
+showServiceDetails();
     document.getElementById("bookingForm").addEventListener("submit", function(e){
 
       e.preventDefault();
