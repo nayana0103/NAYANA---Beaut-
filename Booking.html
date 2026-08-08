@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Réserver | NAYANA Beauté Indienne</title>
+
+  <style>
+    :root{
+      --pink:#c2185b;
+      --deep:#2f1823;
+      --soft:#fff4f8;
+      --ink:#2b1b24;
+      --white:#fff;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:linear-gradient(135deg,#fff,#fff4f8);
+      color:var(--ink);
+    }
+
+    .booking{
+      max-width:700px;
+      margin:auto;
+      padding:45px 20px;
+    }
+
+    .logo{
+      text-align:center;
+      margin-bottom:15px;
+    }
+
+    .logo img{
+      width:75px;
+      height:75px;
+      object-fit:contain;
+    }
+
+    .eyebrow{
+      text-align:center;
+      color:var(--pink);
+      font-weight:800;
+      letter-spacing:2px;
+      margin-top:10px;
+    }
+
+    h1{
+      text-align:center;
+      font-family:Georgia,serif;
+      font-size:42px;
+      margin:8px 0;
+      color:var(--deep);
+    }
+
+    .intro{
+      text-align:center;
+      color:#6f5963;
+      margin-bottom:30px;
+    }
+
+    .box{
+      background:#fff;
+      border:1px solid #efd2df;
+      border-radius:25px;
+      padding:28px;
+      box-shadow:0 8px 25px rgba(80,20,45,.08);
+    }
+
+    label{
+      display:block;
+      color:var(--pink);
+      font-weight:700;
+      margin:18px 0 7px;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:14px;
+      border:1px solid #dfc7d2;
+      border-radius:12px;
+      font-size:16px;
+      background:#fff;
+      color:var(--ink);
+    }
+
+    textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+
+    .btn{
+      display:block;
+      width:100%;
+      margin-top:25px;
+      padding:16px;
+      border:0;
+      border-radius:30px;
+      background:#25D366;
+      color:#fff;
+      font-size:18px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .back{
+      display:block;
+      text-align:center;
+      margin-top:22px;
+      color:var(--pink);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .note{
+      margin-top:18px;
+      text-align:center;
+      font-size:13px;
+      color:#806b75;
+    }
+
+    @media(max-width:600px){
+      .booking{
+        padding:30px 15px;
+      }
+
+      h1{
+        font-size:34px;
+      }
+
+      .box{
+        padding:22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="booking">
+
+    <div class="logo">
+      <img src="nayana-logo-final.png" alt="NAYANA Beauté Indienne">
+    </div>
+
+    <div class="eyebrow">NAYANA BEAUTÉ INDIENNE</div>
+
+    <h1>Réserver</h1>
+
+    <p class="intro">
+      Choisissez votre prestation, la date et l'heure souhaitées.
+    </p>
+
+    <div class="box">
+
+      <form id="bookingForm">
+
+        <label for="service">Prestation</label>
+
+        <select id="service" required>
+          <option value="">Choisissez une prestation</option>
+
+          <option>Beauté des pieds</option>
+          <option>Faux ongles en résine</option>
+          <option>Faux ongles au gel</option>
+          <option>Travail de cils</option>
+          <option>Piercing</option>
+          <option>Henné</option>
+          <option>Maquillage</option>
+          <option>Épilation au fil</option>
+          <option>Épilation à la cire</option>
+          <option>Forfait épilation</option>
+          <option>Soin du visage</option>
+          <option>Massage corporel</option>
+          <option>Manucure</option>
+          <option>Semi-permanent</option>
+
+        </select>
+
+        <label for="date">Date souhaitée</label>
+        <input type="date" id="date" required>
+
+        <label for="time">Heure souhaitée</label>
+        <input type="time" id="time" required>
+
+        <label for="name">Votre nom</label>
+        <input type="text" id="name" placeholder="Votre nom" required>
+
+        <label for="phone">Téléphone</label>
+        <input type="tel" id="phone" placeholder="Votre numéro" required>
+
+        <label for="message">Message (facultatif)</label>
+        <textarea id="message"
+          placeholder="Informations supplémentaires..."></textarea>
+
+        <button type="submit" class="btn">
+          💬 Confirmer ma réservation sur WhatsApp
+        </button>
+
+      </form>
+
+      <p class="note">
+        Votre demande sera envoyée directement par WhatsApp.
+      </p>
+
+    </div>
+
+    <a href="index.html" class="back">
+      ← Retour au site
+    </a>
+
+  </main>
+
+  <script>
+
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get("service");
+
+    if(serviceParam){
+      document.getElementById("service").value =
+        decodeURIComponent(serviceParam);
+    }
+
+    document.getElementById("bookingForm").addEventListener("submit", function(e){
+
+      e.preventDefault();
+
+      const service =
+        document.getElementById("service").value;
+
+      const date =
+        document.getElementById("date").value;
+
+      const time =
+        document.getElementById("time").value;
+
+      const name =
+        document.getElementById("name").value;
+
+      const phone =
+        document.getElementById("phone").value;
+
+      const message =
+        document.getElementById("message").value;
+
+      const text =
+`Bonjour NAYANA Beauté Indienne 🌸
+
+Je souhaite prendre rendez-vous.
+
+💅 Prestation : ${service}
+📅 Date : ${date}
+🕐 Heure : ${time}
+
+👤 Nom : ${name}
+📱 Téléphone : ${phone}
+
+📝 Message :
+${message || "Aucun"}
+
+Merci.`;
+
+      const whatsapp =
+        "https://wa.me/33744895687?text=" +
+        encodeURIComponent(text);
+
+      window.open(whatsapp, "_blank");
+
+    });
+
+  </script>
+
+</body>
+</html>
