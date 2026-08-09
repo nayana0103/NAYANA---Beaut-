@@ -312,64 +312,37 @@ const serviceDetails = {
 };
 
 function showServiceDetails() {
+    const selectedServices = Array.from(
+        document.querySelectorAll('input[name="service"]:checked')
+    ).map(input => input.value);
 
-  const selectedServices = Array.from(
-    document.querySelectorAll('input[name="service"]:checked')
-  ).map(input => input.value);
+    const box = document.getElementById("serviceDetails");
 
-  const box = document.getElementById("serviceDetails");
+    box.innerHTML = "";
 
-  box.innerHTML = "";
+    selectedServices.forEach(function(service) {
 
-  selectedServices.forEach(function(service) {
+        if (!serviceDetails[service]) return;
 
-    if (!serviceDetails[service]) return;
-const title = document.createElement("h3");
-title.textContent = service;
-box.appendChild(title);
-    
+        serviceDetails[service].forEach(function(item) {
 
-    serviceDetails[service].forEach(function(item) {
+            const label = document.createElement("label");
+            label.className = "subservice-option";
 
-      const label = document.createElement("label");
-      label.className = "subservice-option";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "subService";
+            checkbox.value = service + " - " + item[0] + " - " + item[1];
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.name = "subService";
-      checkbox.value = item[0] + " - " + item[1];
+            const text = document.createElement("span");
+            text.textContent = service + " - " + item[0] + " — " + item[1];
 
-      const text = document.createElement("span");
-      text.textContent = item[0] + " - " + item[1];
+            label.appendChild(checkbox);
+            label.appendChild(text);
 
-      label.appendChild(checkbox);
-      label.appendChild(text);
-
-      box.appendChild(label);
+            box.appendChild(label);
+        });
     });
-  });
-}
-  const service = document.getElementById("service").value;
-  const box = document.getElementById("serviceDetails");
-
-  box.innerHTML = "";
-
-  if (!service || !serviceDetails[service]) return;
-
-  const title = document.createElement("h3");
-  title.textContent = service;
-  box.appendChild(title);
-
-  serviceDetails[service].forEach(function(item) {
-    const row = document.createElement("div");
-    row.className = "service-detail-row";
-
-    row.innerHTML =
-      "<span>" + item[0] + "</span>" +
-      "<strong>" + item[1] + "</strong>";
-
-    box.appendChild(row);
-  });
 }
 
 document.getElementById("service").addEventListener("change", showServiceDetails);
