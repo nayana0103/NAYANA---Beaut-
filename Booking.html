@@ -324,7 +324,9 @@ function showServiceDetails() {
   selectedServices.forEach(function(service) {
 
     if (!serviceDetails[service]) return;
-
+const title = document.createElement("h3");
+title.textContent = service;
+box.appendChild(title);
     
 
     serviceDetails[service].forEach(function(item) {
