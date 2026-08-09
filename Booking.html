@@ -419,19 +419,13 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
         .map(option => option.value)
         .filter(value => value);
 
-   /* Get ALL selected options for EACH service */
+  /* Get ALL checked service options */
 const selectedOptions = [];
 
-selectedServices.forEach(function(service, index) {
-
-    const checkedOptions = document.querySelectorAll(
-        'input[name^="subService-' + index + '-"]:checked'
-    );
-
-    checkedOptions.forEach(function(option) {
-        selectedOptions.push(option.value);
-    });
-
+document.querySelectorAll(
+    '#serviceDetails input[type="checkbox"]:checked'
+).forEach(function(option) {
+    selectedOptions.push(option.value);
 });
 
     /* Create WhatsApp message */
