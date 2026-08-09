@@ -386,7 +386,9 @@ function showServiceDetails() {
 
       const text = document.createElement("span");
       text.textContent = item[0] + " — " + item[1];
-
+label.appendChild(radio);
+label.appendChild(text);
+box.appendChild(label);
       /* BOOKING FORM */
 document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
