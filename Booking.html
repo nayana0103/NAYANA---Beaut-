@@ -346,16 +346,22 @@ const serviceDetails = {
 
 function showServiceDetails() {
 
-    const serviceSelect = document.getElementById("service");
-    const box = document.getElementById("serviceDetails");
+  const serviceSelect = document.getElementById("service");
+  const box = document.getElementById("serviceDetails");
 
-    if (!serviceSelect || !box) return;
+  if (!serviceSelect || !box) return;
 
-    const service = serviceSelect.value;
+  box.innerHTML = "";
 
-    box.innerHTML = "";
+  const selectedServices = Array.from(serviceSelect.selectedOptions)
+    .map(option => option.value)
+    .filter(value => value);
 
-    if (!service || !serviceDetails[service]) return;
+  if (selectedServices.length === 0) return;
+
+  selectedServices.forEach(function(service, serviceIndex) {
+
+    if (!serviceDetails[service]) return;
 
     const title = document.createElement("h3");
     title.textContent = service;
@@ -363,54 +369,109 @@ function showServiceDetails() {
 
     serviceDetails[service].forEach(function(item) {
 
-        const label = document.createElement("label");
-        label.className = "subservice-option";
+      const label = document.createElement("label");
+      label.className = "subservice-option";
 
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "subService";
-        radio.value = service + " - " + item[0] + " - " + item[1];
-        radio.required = true;
+      const radio = document.createElement("input");
 
-        const text = document.createElement("span");
-        text.textContent = item[0] + " — " + item[1];
+      radio.type = "radio";
 
-        label.appendChild(radio);
-        label.appendChild(text);
+      // IMPORTANT:
+      // Each service gets its own radio group
+      radio.name = "subService-" + serviceIndex;
 
-        box.appendChild(label);
+      radio.value = service + " - " + item[0] + " - " + item[1];
+
+      radio.required = true;
+
+      const text = document.createElement("span");
+      text.textContent = item[0] + " — " + item[1];
+
+      label.appendChild(radio);
+      label.appendChild(text);
+
+      box.appendChild(label);
+
     });
+
+  });
 }
 
-document.getElementById("service").addEventListener("change", showServiceDetails);
 
+/* Update service details whenever services are selected */
+document.getElementById("service").addEventListener(
+  "change",
+  showServiceDetails
+);
+
+
+/* Load service details when the page opens */
 document.addEventListener("DOMContentLoaded", function() {
   showServiceDetails();
 });
-        document.getElementById("bookingForm").addEventListener("submit", function(e) {
-  e.preventDefault();
 
-  const service = document.getElementById("service").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const message = document.getElementById("message").value;
 
-  const selectedSubService = document.querySelector(
-    'input[name="subService"]:checked'
-  );
+/* BOOKING FORM */
+document.getElementById("bookingForm").addEventListener(
+  "submit",
+  function(e) {
 
-  const subService = selectedSubService
-    ? selectedSubService.value
-    : "";
+    e.preventDefault();
 
-  const text = `Bonjour NAYANA Beauté Indienne 🌸
+    const date =
+      document.getElementById("date").value;
+
+    const time =
+      document.getElementById("time").value;
+
+    const name =
+      document.getElementById("name").value;
+
+    const phone =
+      document.getElementById("phone").value;
+
+    const message =
+      document.getElementById("message").value;
+
+
+    /* Get ALL selected services */
+    const selectedServices =
+      Array.from(
+        document.getElementById("service").selectedOptions
+      )
+      .map(option => option.value)
+      .filter(value => value);
+
+
+    /* Get selected option for EACH service */
+    const selectedOptions = [];
+
+    selectedServices.forEach(function(service, index) {
+
+      const selectedOption =
+        document.querySelector(
+          'input[name="subService-' + index + '"]:checked'
+        );
+
+      if (selectedOption) {
+        selectedOptions.push(selectedOption.value);
+      }
+
+    });
+
+
+    /* Create WhatsApp message */
+    let text =
+`Bonjour NAYANA Beauté Indienne 🌸
 
 Je souhaite prendre rendez-vous.
 
-💅 Prestation : ${service}
-✨ Option : ${subService}
+💅 Prestations sélectionnées :
+${selectedOptions.length > 0
+  ? selectedOptions.map(item => "• " + item).join("\n")
+  : selectedServices.map(item => "• " + item).join("\n")
+}
+
 📅 Date : ${date}
 🕐 Heure : ${time}
 
@@ -422,12 +483,15 @@ ${message || "Aucun"}
 
 Merci.`;
 
-  const whatsapp =
-    "https://wa.me/33744895687?text=" +
-    encodeURIComponent(text);
 
-  window.open(whatsapp, "_blank");
-});
+    const whatsapp =
+      "https://wa.me/33744895687?text=" +
+      encodeURIComponent(text);
+
+    window.open(whatsapp, "_blank");
+
+  }
+);
 
   </script>
 
