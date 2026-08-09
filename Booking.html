@@ -345,7 +345,11 @@ function showServiceDetails() {
     });
 }
 
-document.getElementById("service").addEventListener("change", showServiceDetails);
+document.querySelectorAll('input[name="service"]').forEach(function(input) {
+    input.addEventListener("change", showServiceDetails);
+});
+
+showServiceDetails();
 
 
     const params = new URLSearchParams(window.location.search);
