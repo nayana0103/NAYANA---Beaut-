@@ -429,6 +429,9 @@ document.querySelectorAll(
 });
 
     /* Create WhatsApp message */
+  const selectedOptions = Array.from(
+    document.querySelectorAll('#serviceDetails input[type="checkbox"]:checked')
+).map(option => option.value);
     let text =
 `Bonjour NAYANA Beauté Indienne 🌸
 
