@@ -387,78 +387,51 @@ function showServiceDetails() {
       const text = document.createElement("span");
       text.textContent = item[0] + " — " + item[1];
 
-      label.appendChild(radio);
-      label.appendChild(text);
-
-      box.appendChild(label);
-
-    });
-
-  });
-}
-
-
-/* Update service details whenever services are selected */
-document.getElementById("service").addEventListener(
-  "change",
-  showServiceDetails
-);
-
-
-/* Load service details when the page opens */
-document.addEventListener("DOMContentLoaded", function() {
-  showServiceDetails();
-});
-
-
-/* BOOKING FORM */
-document.getElementById("bookingForm").addEventListener(
-  "submit",
-  function(e) {
+      /* BOOKING FORM */
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
     e.preventDefault();
 
     const date =
-      document.getElementById("date").value;
+        document.getElementById("date").value;
 
     const time =
-      document.getElementById("time").value;
+        document.getElementById("time").value;
 
     const name =
-      document.getElementById("name").value;
+        document.getElementById("name").value;
 
     const phone =
-      document.getElementById("phone").value;
+        document.getElementById("phone").value;
 
     const message =
-      document.getElementById("message").value;
-
+        document.getElementById("message").value;
 
     /* Get ALL selected services */
     const selectedServices =
-      Array.from(
-        document.getElementById("service").selectedOptions
-      )
-      .map(option => option.value)
-      .filter(value => value);
-
+        Array.from(
+            document.getElementById("service").selectedOptions
+        )
+        .map(option => option.value)
+        .filter(value => value);
 
     /* Get selected option for EACH service */
     const selectedOptions = [];
 
     selectedServices.forEach(function(service, index) {
 
-      const selectedOption =
-        document.querySelector(
-          'input[name="subService-' + index + '"]:checked'
-        );
+        const selectedOption =
+            document.querySelector(
+                'input[name="subService-' + index + '"]:checked'
+            );
 
-      if (selectedOption) {
-        selectedOptions.push(selectedOption.value);
-      }
+        if (selectedOption) {
+            selectedOptions.push(
+                selectedOption.value
+            );
+        }
 
     });
-
 
     /* Create WhatsApp message */
     let text =
@@ -468,8 +441,8 @@ Je souhaite prendre rendez-vous.
 
 💅 Prestations sélectionnées :
 ${selectedOptions.length > 0
-  ? selectedOptions.map(item => "• " + item).join("\n")
-  : selectedServices.map(item => "• " + item).join("\n")
+    ? selectedOptions.map(item => "• " + item).join("\n")
+    : selectedServices.map(item => "• " + item).join("\n")
 }
 
 📅 Date : ${date}
@@ -483,15 +456,13 @@ ${message || "Aucun"}
 
 Merci.`;
 
-
     const whatsapp =
-      "https://wa.me/33744895687?text=" +
-      encodeURIComponent(text);
+        "https://wa.me/33744895687?text=" +
+        encodeURIComponent(text);
 
     window.open(whatsapp, "_blank");
 
-  }
-);
+});
 
   </script>
 
