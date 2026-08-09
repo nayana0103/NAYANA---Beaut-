@@ -419,23 +419,20 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
         .map(option => option.value)
         .filter(value => value);
 
-    /* Get selected option for EACH service */
-    const selectedOptions = [];
+   /* Get ALL selected options for EACH service */
+const selectedOptions = [];
 
-    selectedServices.forEach(function(service, index) {
+selectedServices.forEach(function(service, index) {
 
-        const selectedOption =
-            document.querySelector(
-                'input[name="subService-' + index + '"]:checked'
-            );
+    const checkedOptions = document.querySelectorAll(
+        'input[name^="subService-' + index + '-"]:checked'
+    );
 
-        if (selectedOption) {
-            selectedOptions.push(
-                selectedOption.value
-            );
-        }
-
+    checkedOptions.forEach(function(option) {
+        selectedOptions.push(option.value);
     });
+
+});
 
     /* Create WhatsApp message */
     let text =
