@@ -258,53 +258,40 @@ const serviceDetails = {
 
 function showServiceDetails() {
 
-  const params = new URLSearchParams(window.location.search);
+    const serviceSelect = document.getElementById("service");
+    const box = document.getElementById("serviceDetails");
 
-  const serviceParam = params.get("service");
-  const subServiceParam = params.get("subService");
+    if (!serviceSelect || !box) return;
 
-  const serviceSelect = document.getElementById("service");
-  const box = document.getElementById("serviceDetails");
+    const service = serviceSelect.value;
 
-  if (!serviceSelect || !box) return;
+    box.innerHTML = "";
 
-  if (serviceParam) {
-    serviceSelect.value = serviceParam;
-  }
+    if (!service || !serviceDetails[service]) return;
 
-  const service = serviceSelect.value;
+    const title = document.createElement("h3");
+    title.textContent = service;
+    box.appendChild(title);
 
-  box.innerHTML = "";
+    serviceDetails[service].forEach(function(item) {
 
-  if (!service || !serviceDetails[service]) return;
+        const label = document.createElement("label");
+        label.className = "subservice-option";
 
-  const title = document.createElement("h3");
-  title.textContent = service;
-  box.appendChild(title);
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "subService";
+        radio.value = service + " - " + item[0] + " - " + item[1];
+        radio.required = true;
 
-  serviceDetails[service].forEach(function(item) {
+        const text = document.createElement("span");
+        text.textContent = item[0] + " — " + item[1];
 
-    const label = document.createElement("label");
-    label.className = "subservice-option";
+        label.appendChild(radio);
+        label.appendChild(text);
 
-    const radio = document.createElement("input");
-    radio.type = "radio";
-    radio.name = "subService";
-    radio.value = service + " - " + item[0] + " - " + item[1];
-
-    const text = document.createElement("span");
-    text.textContent = item[0] + " – " + item[1];
-
-    label.appendChild(radio);
-    label.appendChild(text);
-
-    box.appendChild(label);
-
-    if (subServiceParam && item[0] === subServiceParam) {
-      radio.checked = true;
-    }
-
-  });
+        box.appendChild(label);
+    });
 }
 
 document.getElementById("service").addEventListener("change", showServiceDetails);
