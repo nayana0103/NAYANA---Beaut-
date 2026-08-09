@@ -313,35 +313,51 @@ const serviceDetails = {
 
 function showServiceDetails() {
 
-    const service = document.getElementById("service").value;
-    const box = document.getElementById("serviceDetails");
+  const params = new URLSearchParams(window.location.search);
 
-    box.innerHTML = "";
+  const serviceParam = params.get("service");
+  const subServiceParam = params.get("subService");
 
-    if (!service || !serviceDetails[service]) return;
+  const serviceSelect = document.getElementById("service");
+  const box = document.getElementById("serviceDetails");
 
-    const title = document.createElement("h3");
-    title.textContent = service;
-    box.appendChild(title);
+  if (serviceParam && serviceSelect) {
+    serviceSelect.value = serviceParam;
+  }
 
-    serviceDetails[service].forEach(function(item) {
+  const service = serviceSelect.value;
 
-        const label = document.createElement("label");
-        label.className = "subservice-option";
+  box.innerHTML = "";
 
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.name = "subService";
-        checkbox.value = service + " — " + item[0] + " — " + item[1];
+  if (!service || !serviceDetails[service]) return;
 
-        const text = document.createElement("span");
-        text.textContent = item[0] + " — " + item[1];
+  const title = document.createElement("h3");
+  title.textContent = service;
+  box.appendChild(title);
 
-        label.appendChild(checkbox);
-        label.appendChild(text);
+  serviceDetails[service].forEach(function(item) {
 
-        box.appendChild(label);
-    });
+    const label = document.createElement("label");
+    label.className = "subservice-option";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "subService";
+    checkbox.value = service + " - " + item[0] + " - " + item[1];
+
+    const text = document.createElement("span");
+    text.textContent = item[0] + " - " + item[1];
+
+    label.appendChild(checkbox);
+    label.appendChild(text);
+
+    box.appendChild(label);
+
+    if (subServiceParam && item[0] === subServiceParam) {
+      checkbox.checked = true;
+    }
+
+  });
 }
         document.getElementById("time").value;
 
