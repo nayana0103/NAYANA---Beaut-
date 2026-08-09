@@ -222,19 +222,99 @@
 
   <script>
 const serviceDetails = {
+
   "Beauté des pieds": [
-    ["Beauté des pieds (40 min)", "30 €"],
-    ["Manucure complète + beauté des pieds, soins des cuticules", "46 €"]
+    ["Beauté des pieds (40min)", "30 €"],
+    ["Manucure complète + beauté des pieds", "46 €"]
   ],
 
   "Faux ongles en résine": [
-    ["Avec French", "30 €"],
-    ["Avec vernis simple", "35 €"],
-    ["Avec semi-permanent", "45 €"],
-    ["Baby boomer", "50 €"],
+    ["Faux ongles avec French", "30 €"],
+    ["Faux ongles avec vernis simple", "35 €"],
+    ["Faux ongles avec semi permanent", "45 €"],
+    ["Faux ongles avec baby boomer", "50 €"],
     ["Remplissage", "20 €"],
     ["Enlever faux ongles", "10 €"],
     ["Dessin d’un ongle", "1 €"]
+  ],
+
+  "Faux ongles au gel": [
+    ["Faux ongles avec French", "35 €"],
+    ["Faux ongles avec vernis simple", "40 €"],
+    ["Faux ongles avec semi permanent", "50 €"],
+    ["Remplissage", "20 €"],
+    ["Manucure complète + faux ongles", "55 €"]
+  ],
+
+  "Travail de cils": [
+    ["Extension de cils", "50 €"],
+    ["Rehaussement de cils", "30 €"]
+  ],
+
+  "Piercing": [
+    ["Piercing Nez", "8 €"],
+    ["Piercing Oreille", "12 €"]
+  ],
+
+  "Henné": [
+    ["Rouge, noir, naturelle", "À partir de 8 €"]
+  ],
+
+  "Maquillage": [
+    ["Maquillage simple", "30 €"],
+    ["Maquillage soirée", "45 €"],
+    ["Maquillage mariage", "95 €"]
+  ],
+
+  "Épilation au fil": [
+    ["Sourcils", "5 €"],
+    ["Lèvres", "4 €"],
+    ["Menton", "4 €"],
+    ["Joues", "4 €"],
+    ["Cou", "4 €"],
+    ["Forfait épilation visage (Front, Sourcils, Joues, Menton)", "20 €"],
+    ["Coloration Des Sourcils", "8 €"]
+  ],
+
+  "Épilation à la cire": [
+    ["Sourcils", "6 €"],
+    ["Lèvres", "5 €"],
+    ["Visage complet", "20 €"],
+    ["Aisselles", "9 €"],
+    ["Bras entier", "15 €"],
+    ["Demi bras", "10 €"],
+    ["Jambes entières", "25 €"],
+    ["Demi jambes", "15 €"],
+    ["Ventre", "9 €"],
+    ["Dos", "12 €"],
+    ["Maillot intégrale", "25 €"],
+    ["Maillot semi intégrale", "15 €"],
+    ["Maillot simple", "10 €"],
+    ["Cuisse", "14 €"]
+  ],
+
+  "Forfait épilation": [
+    ["Aisselles + maillot simple + demi jambes", "30 €"],
+    ["Aisselles + maillot intégrale + demi jambes", "45 €"],
+    ["Aisselles + maillot simple + jambes entières", "40 €"],
+    ["Aisselles + maillots intégrale + jambes entières", "55 €"],
+    ["Aisselles + bras entiers + jambes entières", "45 €"],
+    ["Aisselles + demi bras + demi jambes", "31 €"]
+  ],
+
+  "Soin du visage": [
+    ["Soin simple tout types de peaux (20 min)", "19 €"],
+    ["Soin normal tout types de peaux (35min)", "29 €"],
+    ["Soin complet, spécial à la poudre d'or aux extraits de plantes (45min)", "40 €"],
+    ["Soin complet traitement des troubles de la pigmentation papaye (45min)", "35 €"],
+    ["Soin complet avec aloe Vera (45min)", "35 €"]
+  ],
+
+  "Massage Corporel": [
+    ["Massage du corps (1h)", "50 €"],
+    ["Massage du dos (30min)", "25 €"],
+    ["Massage corporel + soin du visage", "75 €"],
+    ["Soin des cheveux (25min)", "23 €"]
   ],
 
   "Manucure": [
@@ -243,17 +323,23 @@ const serviceDetails = {
     ["Manucure simple French", "20 €"]
   ],
 
+  "Manucure complet": [
+    ["L'image, gommage, modelage, vernis simple, soin du cuticules", "20 €"],
+    ["L'image, gommage, modelage, vernis French, soin du cuticules", "25 €"]
+  ],
+
   "Semi-permanent": [
     ["Vernis couleur", "20 €"],
     ["French", "25 €"],
-    ["Baby boomer semi-permanent", "28 €"],
-    ["Manucure complète + vernis couleur", "35 €"],
-    ["Manucure complète + vernis French", "40 €"],
-    ["Manucure complète + beauté des pieds", "75 €"],
-    ["Manucure complète + beauté des pieds (French, mains et pieds)", "85 €"],
+    ["Baby boomer semi permanent", "28 €"],
+    ["Manucure complet + vernis couleur", "35 €"],
+    ["Manucure complet + vernis French", "40 €"],
+    ["Manucure complet + beauté des pieds", "75 €"],
+    ["Manucure complet + beauté des pieds (French, mains et pieds)", "85 €"],
     ["Beauté des pieds + vernis couleur", "40 €"],
     ["Beauté des pieds + French", "45 €"]
   ]
+
 };
 
 function showServiceDetails() {
