@@ -165,25 +165,81 @@
 
         <label for="service">Prestation</label>
 
-        <select id="service" required>
-          <option value="">Choisissez une prestation</option>
+        <div id="serviceOptions" class="service-options">
 
-          <option>Beauté des pieds</option>
-          <option>Faux ongles en résine</option>
-          <option>Faux ongles au gel</option>
-          <option>Travail de cils</option>
-          <option>Piercing</option>
-          <option>Henné</option>
-          <option>Maquillage</option>
-          <option>Épilation au fil</option>
-          <option>Épilation à la cire</option>
-          <option>Forfait épilation</option>
-          <option>Soin du visage</option>
-          <option>Massage corporel</option>
-          <option>Manucure</option>
-          <option>Semi-permanent</option>
+  <label>
+    <input type="checkbox" name="service" value="Beauté des pieds">
+    Beauté des pieds
+  </label>
 
-        </select>
+  <label>
+    <input type="checkbox" name="service" value="Faux ongles en résine">
+    Faux ongles en résine
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Faux ongles au gel">
+    Faux ongles au gel
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Travail de cils">
+    Travail de cils
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Piercing">
+    Piercing
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Henné">
+    Henné
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Maquillage">
+    Maquillage
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Épilation au fil">
+    Épilation au fil
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Épilation à la cire">
+    Épilation à la cire
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Forfait épilation">
+    Forfait épilation
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Soin du visage">
+    Soin du visage
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Massage corporel">
+    Massage corporel
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Manucure">
+    Manucure
+  </label>
+
+  <label>
+    <input type="checkbox" name="service" value="Semi-permanent">
+    Semi-permanent
+  </label>
+
+</div>
+
+<div id="serviceDetails"></div>
 <div id="serviceDetails"></div>
         <label for="date">Date souhaitée</label>
         <input type="date" id="date" required>
@@ -256,6 +312,43 @@ const serviceDetails = {
 };
 
 function showServiceDetails() {
+
+  const selectedServices = Array.from(
+    document.querySelectorAll('input[name="service"]:checked')
+  ).map(input => input.value);
+
+  const box = document.getElementById("serviceDetails");
+
+  box.innerHTML = "";
+
+  selectedServices.forEach(function(service) {
+
+    if (!serviceDetails[service]) return;
+
+    const title = document.createElement("h3");
+    title.textContent = service;
+    box.appendChild(title);
+
+    serviceDetails[service].forEach(function(item) {
+
+      const label = document.createElement("label");
+      label.className = "subservice-option";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.name = "subService";
+      checkbox.value = item[0] + " - " + item[1];
+
+      const text = document.createElement("span");
+      text.textContent = item[0] + " - " + item[1];
+
+      label.appendChild(checkbox);
+      label.appendChild(text);
+
+      box.appendChild(label);
+    });
+  });
+}
   const service = document.getElementById("service").value;
   const box = document.getElementById("serviceDetails");
 
