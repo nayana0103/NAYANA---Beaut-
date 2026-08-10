@@ -338,3 +338,10 @@ img {
     }
 
 }
+.brand-text strong {
+    font-size: 28px;
+}
+
+.brand-text small {
+    font-size: 16px;
+}
