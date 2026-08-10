@@ -411,30 +411,50 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
     const message =
         document.getElementById("message").value;
 
-    /* Get ALL selected services */
-    const selectedServices =
-        Array.from(
-            document.getElementById("service").selectedOptions
-        )
-        .map(option => option.value)
-        .filter(value => value);
+    /* Get selected services */
+const selectedServices = Array.from(
+    document.getElementById("service").selectedOptions
+)
+.map(option => option.value)
+.filter(value => value);
 
-  const selectedOptions = Array.from(
+/* Get ALL selected options */
+const selectedOptions = Array.from(
     document.querySelectorAll('#serviceDetails input[type="checkbox"]:checked')
-).map(option => option.value);
+)
+.map(option => option.value);
 
-    /* Create WhatsApp message */
-  
-    let text =
-`Bonjour NAYANA Beauté Indienne 🌸
+/* Calculate total price */
+const total = selectedOptions.reduce((sum, item) => {
+    const match = item.match(/(\d+(?:[.,]\d+)?)\s*€/);
 
-Je souhaite prendre rendez-vous.
+    if (!match) return sum;
 
-💅 Prestations sélectionnées :
-${selectedOptions.length > 0
+    return sum + parseFloat(match[1].replace(",", "."));
+}, 0);
+
+/* Format selected services */
+const servicesText = selectedServices.length > 0
+    ? selectedServices.map(service => "• " + service).join("\n")
+    : "• Aucune prestation sélectionnée";
+
+/* Format selected options */
+const optionsText = selectedOptions.length > 0
     ? selectedOptions.map(item => "• " + item).join("\n")
-    : "Aucune prestation sélectionnée"
-}
+    : "• Aucune option sélectionnée";
+
+/* Create professional WhatsApp message */
+const text = `🌸 NAYANA BEAUTÉ INDIENNE 🌸
+
+📋 DEMANDE DE RENDEZ-VOUS
+
+💅 Prestations :
+${servicesText}
+
+✨ Options sélectionnées :
+${optionsText}
+
+💰 TOTAL : ${total.toFixed(2).replace(".", ",")} €
 
 📅 Date : ${date}
 🕐 Heure : ${time}
@@ -445,14 +465,15 @@ ${selectedOptions.length > 0
 📝 Message :
 ${message || "Aucun"}
 
-Merci.`;
+Merci pour votre réservation 🌸
+À bientôt chez NAYANA Beauté Indienne ❤️`;
 
-    const whatsapp =
-        "https://wa.me/33744895687?text=" +
-        encodeURIComponent(text);
+/* Open WhatsApp */
+const whatsapp =
+    "https://wa.me/33744895687?text=" +
+    encodeURIComponent(text);
 
-    window.open(whatsapp, "_blank");
-
+window.open(whatsapp, "_blank");
 });
 
   </script>
