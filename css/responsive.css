@@ -322,7 +322,39 @@ img {
         bottom: 15px;
     }
 }
+/* CTA – Mobile */
+.cta {
+    padding: 55px 20px 60px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
 
+.cta .section-inner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.cta h2 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 15px;
+}
+
+.cta p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto 25px;
+    max-width: 340px;
+}
+
+.cta .btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
 
 /* ==========================================
    VERY SMALL SCREEN
