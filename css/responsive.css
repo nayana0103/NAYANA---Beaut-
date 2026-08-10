@@ -244,15 +244,15 @@ img {
     }
 /* NAYANA salon photo - mobile */
 .hero-card {
-    width: calc(100% + 30px);
-    margin-left: -15px;
-    margin-right: -15px;
-    padding: 15px 6px 25px;
+    width: 100%;
+    margin: 0;
+    padding: 18px 10px 28px;
     background: #fff;
     border: 2px solid #e8bfd0;
     border-radius: 28px;
     box-shadow: 0 12px 30px rgba(170, 20, 90, 0.12);
     box-sizing: border-box;
+
 }
 
 .hero-card img {
