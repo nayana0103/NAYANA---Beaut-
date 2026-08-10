@@ -438,9 +438,13 @@ const servicesText = selectedServices.length > 0
     ? selectedServices.map(service => "• " + service).join("\n")
     : "• Aucune prestation sélectionnée";
 
-/* Format selected options */
+/* Format selected options with clean names and prices */
 const optionsText = selectedOptions.length > 0
-    ? selectedOptions.map(item => "• " + item).join("\n")
+    ? selectedOptions.map(item => {
+        const parts = item.split(" - ");
+        const optionName = parts.slice(1).join(" - ") || item;
+        return "• " + optionName;
+    }).join("\n")
     : "• Aucune option sélectionnée";
 
 /* Create professional WhatsApp message */
