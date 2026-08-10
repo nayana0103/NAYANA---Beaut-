@@ -49,11 +49,7 @@ img {
     margin-bottom: 22px;
     max-width: none !important;
     height: auto;
-
-    margin: 0 -8px 22px;
-
     border-radius: 18px;
-
     object-fit: cover;
 }
 
