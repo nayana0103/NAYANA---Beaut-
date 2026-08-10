@@ -22,26 +22,52 @@ img {
     max-width: 100%;
     height: auto;
 }
-/* NAYANA salon photo */
+/* =========================================
+   NAYANA SALON PHOTO CARD
+   ========================================= */
+
 .hero-card {
     width: 100%;
-    padding: 15px 10px 25px;
+    margin: 25px 0;
+    padding: 18px 8px 28px;
     box-sizing: border-box;
+
+    background: #ffffff;
+    border: 2px solid #e8bfd0;
+    border-radius: 30px;
+
+    box-shadow: 0 12px 30px rgba(170, 20, 90, 0.12);
+
+    overflow: hidden;
 }
 
 .hero-card img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
     display: block;
-    margin: 0 auto 20px;
-    border-radius: 10px;
+    width: 100%;
+    max-width: none;
+    height: auto;
+
+    margin: 0 auto 22px;
+
+    border-radius: 18px;
+
+    object-fit: cover;
 }
 
 .hero-card h3 {
-    font-size: 40px;
+    font-size: 48px;
+    line-height: 1.1;
     text-align: center;
-    margin: 10px 0 12px;
+
+    margin: 12px 0 10px;
+
+    color: #a4145a;
+    font-weight: 700;
+}
+
+.hero-card p {
+    text-align: center;
+    margin: 8px 0;
 }
 /* Container */
 
