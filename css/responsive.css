@@ -234,6 +234,34 @@ img {
         font-size: 15px;
     }
 .cta {
+   .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.contact-item {
+    width: 100%;
+    padding: 24px 18px;
+    background: #fff6fa;
+    border: 2px solid #f0d6e1;
+    border-radius: 24px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.contact-item strong {
+    display: block;
+    color: #a4145a;
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.contact-item a {
+    color: #24151c;
+    font-size: 17px;
+    line-height: 1.5;
+}
     padding: 55px 20px;
     text-align: center;
 }
