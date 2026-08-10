@@ -22,7 +22,27 @@ img {
     max-width: 100%;
     height: auto;
 }
+/* NAYANA salon photo */
+.hero-card {
+    width: 100%;
+    padding: 15px 10px 25px;
+    box-sizing: border-box;
+}
 
+.hero-card img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 10px;
+}
+
+.hero-card h3 {
+    font-size: 36px;
+    text-align: center;
+    margin: 10px 0 12px;
+}
 /* Container */
 
 .container {
