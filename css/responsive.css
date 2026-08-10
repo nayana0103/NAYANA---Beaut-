@@ -255,12 +255,12 @@ img {
 }
 
 .hero-card img {
-    width: 100%;
+    width: calc(100% + 20px);
     max-width: none;
     height: auto;
     display: block;
-    margin: 0 auto 18px;
-    border-radius: 16px;
+    margin: -18px -10px 18px;
+    border-radius: 28px 28px 16px 16px;
 }
 
 .hero-card h3 {
