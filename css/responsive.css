@@ -234,9 +234,17 @@ img {
         font-size: 15px;
     }
    /* Logo + texte - mobile */
+.logo,
 .logo img {
-    width: 220px !important;
+    width: 260px !important;
+    max-width: 260px !important;
     height: auto !important;
+}
+
+.logo {
+    margin: 0 auto !important;
+    display: block !important;
+    text-align: center !important;
 }
 .cta {
    .contact-grid {
