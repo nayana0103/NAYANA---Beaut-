@@ -233,18 +233,21 @@ img {
     body {
         font-size: 15px;
     }
-   /* Logo + texte - mobile */
-.logo,
-.logo img {
-    width: 280px !important;
-    max-width: 280px !important;
-    height: auto !important;
+   /* Logo + texte – mobile */
+.logo {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
-.logo {
-    margin: 0 auto !important;
+.logo img {
+    width: 320px !important;
+    max-width: 90vw !important;
+    height: auto !important;
     display: block !important;
-    text-align: center !important;
 }
 .cta {
    .contact-grid {
