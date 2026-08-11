@@ -245,7 +245,7 @@ img {
 
 .logo img {
     width: 360px !important;
-    max-width: none !important;
+    max-width: 90vw !important;
     height: auto !important;
     display: block !important;
 }
