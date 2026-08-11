@@ -233,6 +233,11 @@ img {
     body {
         font-size: 15px;
     }
+   /* Logo + texte - mobile */
+.logo img {
+    width: 220px !important;
+    height: auto !important;
+}
 .cta {
    .contact-grid {
     display: grid;
