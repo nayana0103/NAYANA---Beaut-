@@ -244,10 +244,12 @@ img {
 }
 
 .logo img {
-    width: 360px !important;
-    max-width: 90vw !important;
+    width: 420px !important;
+    max-width: none !important;
     height: auto !important;
     display: block !important;
+    transform: scale(1.4) !important;
+    transform-origin: center center !important;
 }
 .cta {
    .contact-grid {
