@@ -411,7 +411,10 @@ text.innerHTML =
     });
   });
 }
-document.getElementById("service").addEventListener("change", showServiceDetails);
+const serviceSelect = document.getElementById("service");
+
+serviceSelect.addEventListener("change", showServiceDetails);
+serviceSelect.addEventListener("input", showServiceDetails);
       /* BOOKING FORM */
 document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
