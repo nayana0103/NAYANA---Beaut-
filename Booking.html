@@ -394,7 +394,15 @@ function showServiceDetails() {
       
 
       const text = document.createElement("span");
-      text.textContent = item[0] + " - " + item[1];
+      const originalPrice = parseFloat(item[1].replace(",", "."));
+const discountPrice = originalPrice * 0.9;
+
+text.innerHTML =
+  item[0] + " - " +
+  "<del>" + item[1] + "</del> " +
+  "<span class=\"discount-price\">" +
+  discountPrice.toFixed(2).replace(".00", "").replace(".", ",") +
+  " €</span>";
 
       label.appendChild(radio);
       label.appendChild(text);
