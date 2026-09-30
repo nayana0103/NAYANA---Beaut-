@@ -356,7 +356,7 @@ const serviceDetails = {
 
 };
 
-function showServiceDetails() {
+function showServiceDetails = function() {
     const serviceSelect = document.getElementById("service");
     const box = document.getElementById("serviceDetails");
 
@@ -413,10 +413,7 @@ function showServiceDetails() {
             box.appendChild(label);
         });
     });
-}
-document.addEventListener("DOMContentLoaded", function () {
-
-    const serviceSelect = document.getElementById("service");
+};
 
     if (!serviceSelect) {
         console.log("Service select not found");
