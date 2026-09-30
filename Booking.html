@@ -357,59 +357,62 @@ const serviceDetails = {
 };
 
 function showServiceDetails() {
-  const serviceSelect = document.getElementById("service");
-  const box = document.getElementById("serviceDetails");
+    const serviceSelect = document.getElementById("service");
+    const box = document.getElementById("serviceDetails");
 
-  if (!serviceSelect || !box) return;
+    if (!serviceSelect || !box) return;
 
-  box.innerHTML = "";
+    box.innerHTML = "";
 
-  const selectedServices = Array.from(serviceSelect.selectedOptions)
-    .map(option => option.value)
-    .filter(value => value);
+    const selectedServices = Array.from(serviceSelect.selectedOptions)
+        .map(option => option.value)
+        .filter(value => value);
 
-  if (selectedServices.length === 0) return;
+    if (selectedServices.length === 0) return;
 
-  selectedServices.forEach(function(service, serviceIndex) {
+    selectedServices.forEach(function(service, serviceIndex) {
 
-    if (!serviceDetails[service]) return;
+        if (!serviceDetails[service]) return;
 
-    const title = document.createElement("h3");
-    title.textContent = service;
-    box.appendChild(title);
+        const title = document.createElement("h3");
+        title.textContent = service;
+        box.appendChild(title);
 
-    serviceDetails[service].forEach(function(item) {
+        serviceDetails[service].forEach(function(item) {
 
-      const label = document.createElement("label");
-      label.className = "subservice-option";
+            const label = document.createElement("label");
+            label.className = "subservice-option";
 
-      const radio = document.createElement("input");
-      radio.type = "checkbox";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
 
-      // ஒவ்வொரு service-க்கும் தனி radio group
-      radio.name = "subService-" + serviceIndex + "-" + item[0];
+            checkbox.name = "subService-" + serviceIndex;
+            checkbox.value = service + " - " + item[0] + " - " + item[1];
 
-      radio.value = service + " - " + item[0] + " - " + item[1];
+            const text = document.createElement("span");
 
-      
+            const originalPrice = parseFloat(
+                item[1].replace(",", ".")
+            );
 
-      const text = document.createElement("span");
-      const originalPrice = parseFloat(item[1].replace(",", "."));
-const discountPrice = originalPrice * 0.9;
+            const discountPrice = originalPrice * 0.9;
 
-text.innerHTML =
-  item[0] + " - " +
-  "<del>" + item[1] + "</del> " +
-  "<span class=\"discount-price\">" +
-  discountPrice.toFixed(2).replace(".00", "").replace(".", ",") +
-  " €</span>";
+            text.innerHTML =
+                item[0] +
+                " - " +
+                "<del>" + item[1] + "</del> " +
+                "<span class=\"discount-price\">" +
+                discountPrice.toFixed(2)
+                    .replace(".00", "")
+                    .replace(".", ",") +
+                " €</span>";
 
-      label.appendChild(radio);
-      label.appendChild(text);
+            label.appendChild(checkbox);
+            label.appendChild(text);
 
-      box.appendChild(label);
+            box.appendChild(label);
+        });
     });
-  });
 }
 const serviceSelect = document.getElementById("service");
 
