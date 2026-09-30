@@ -414,10 +414,24 @@ function showServiceDetails() {
         });
     });
 }
-const serviceSelect = document.getElementById("service");
+document.addEventListener("DOMContentLoaded", function () {
 
-serviceSelect.addEventListener("change", showServiceDetails);
-serviceSelect.addEventListener("input", showServiceDetails);
+    const serviceSelect = document.getElementById("service");
+
+    if (!serviceSelect) {
+        console.log("Service select not found");
+        return;
+    }
+
+    serviceSelect.addEventListener("change", function () {
+        showServiceDetails();
+    });
+
+    serviceSelect.addEventListener("input", function () {
+        showServiceDetails();
+    });
+
+});
       /* BOOKING FORM */
 document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
