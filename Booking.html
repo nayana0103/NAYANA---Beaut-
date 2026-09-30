@@ -366,39 +366,33 @@ window.showServiceDetails = function () {
     const serviceSelect = document.getElementById("service");
     const box = document.getElementById("serviceDetails");
 
-    if (!serviceSelect || !box) {
-        return;
-    }
+    if (!serviceSelect || !box) return;
 
     box.innerHTML = "";
 
-    const selectedServices = Array.from(
-        serviceSelect.options
-    )
-    .filter(option => option.selected && option.value);
+    const selectedOptions = Array.from(serviceSelect.options)
+        .filter(option => option.selected && option.value !== "");
 
-    selectedServices.forEach(function (serviceOption, serviceIndex) {
+    selectedOptions.forEach(function (option) {
 
-        const service = serviceOption.value;
+        const service = option.value;
+        const details = serviceDetails[service];
 
-        if (!serviceDetails[service]) {
-            return;
-        }
+        if (!details) return;
 
         const title = document.createElement("h3");
         title.textContent = service;
         box.appendChild(title);
 
-        serviceDetails[service].forEach(function (item) {
+        details.forEach(function (item) {
 
             const label = document.createElement("label");
             label.className = "subservice-option";
 
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
-
-            checkbox.name = "subService-" + serviceIndex;
-
+            checkbox.name = "subService-" + service;
+            
             const originalPrice = parseFloat(
                 item[1].replace(",", ".").replace(/[^\d.]/g, "")
             );
@@ -412,18 +406,16 @@ window.showServiceDetails = function () {
 
             const text = document.createElement("span");
 
-            const discountedDisplay =
-                discountPrice
-                    .toFixed(2)
-                    .replace(".00", "")
-                    .replace(".", ",");
+            const price = discountPrice
+                .toFixed(2)
+                .replace(".00", "")
+                .replace(".", ",");
 
             text.innerHTML =
                 item[0] +
-                " - " +
-                "<del>" + item[1] + "</del> " +
+                " - <del>" + item[1] + "</del> " +
                 "<strong class=\"discount-price\">" +
-                discountedDisplay +
+                price +
                 " €</strong>";
 
             label.appendChild(checkbox);
