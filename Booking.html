@@ -446,13 +446,14 @@ const selectedOptions = Array.from(
 
 /* Calculate total price */
 const total = selectedOptions.reduce((sum, item) => {
-    const match = item.match(/(\d+(?:[.,]\d+)?)\s*€/);
+    const originalTotal = selectedOptions.reduce((sum, item) => {
+  const match = item.match(/(\d+(?:[.,]\d+)?)\s*€?/);
+  if (!match) return sum;
 
-    if (!match) return sum;
-
-    return sum + parseFloat(match[1].replace(",", "."));
+  return sum + parseFloat(match[1].replace(",", "."));
 }, 0);
 
+const total = originalTotal * 0.90;
 /* Format selected services */
 const servicesText = selectedServices.length > 0
     ? selectedServices.map(service => "• " + service).join("\n")
