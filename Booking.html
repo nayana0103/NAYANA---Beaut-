@@ -360,167 +360,291 @@ window.serviceDetails = {
 };
 
 
+const DISCOUNT_RATE = 0.10;
+
+function parsePrice(priceText) {
+  const match = String(priceText).match(/(\d+(?:[.,]\d+)?)/);
+  return match ? parseFloat(match[1].replace(",", ".")) : 0;
+}
+
+function formatPrice(value) {
+  return value.toFixed(2).replace(".", ",") + " €";
+}
+
+function getSelectedItems() {
+  return Array.from(
+    document.querySelectorAll('#serviceDetails input[type="checkbox"]:checked')
+  ).map(function (checkbox) {
+    return JSON.parse(checkbox.dataset.item);
+  });
+}
+
+function updateTotal() {
+  const box = document.getElementById("priceSummary");
+  if (!box) return;
+
+  const items = getSelectedItems();
+
+  const originalTotal = items.reduce(function (total, item) {
+    return total + item.originalPrice;
+  }, 0);
+
+  const discount = originalTotal * DISCOUNT_RATE;
+  const total = originalTotal - discount;
+
+  box.innerHTML =
+    '<div><span>Prix initial</span><strong>' +
+    formatPrice(originalTotal) +
+    '</strong></div>' +
+
+    '<div style="color:#c2185b;">' +
+    '<span>Réduction 10%</span><strong>- ' +
+    formatPrice(discount) +
+    '</strong></div>' +
+
+    '<div style="border-top:1px solid #e6c6d5;margin-top:8px;padding-top:10px;font-size:18px;">' +
+    '<span><strong>Total à payer</strong></span>' +
+    '<strong>' + formatPrice(total) + '</strong>' +
+    '</div>';
+}
+
 window.showServiceDetails = function () {
 
-    const serviceSelect = document.getElementById("service");
-    const box = document.getElementById("serviceDetails");
+  const serviceSelect = document.getElementById("service");
+  const box = document.getElementById("serviceDetails");
 
-    if (!serviceSelect || !box) return;
+  if (!serviceSelect || !box) return;
 
-    box.innerHTML = "";
+  box.innerHTML = "";
 
-    const selectedOptions = Array.from(serviceSelect.selectedOptions)
-  .filter(option => option.value);
+  const selectedServices = Array.from(
+    serviceSelect.selectedOptions
+  ).filter(function (option) {
+    return option.value;
+  });
 
-    selectedOptions.forEach(function (option) {
+  selectedServices.forEach(function (option) {
 
-        const service = option.value;
-        const details = window.serviceDetails[service];
+    const service = option.value;
+    const details = window.serviceDetails[service];
 
-        if (!details) return;
+    if (!details) return;
 
-        const title = document.createElement("h3");
-        title.textContent = service;
-        box.appendChild(title);
+    const title = document.createElement("h3");
+    title.textContent = service;
+    box.appendChild(title);
 
-        details.forEach(function (item) {
+    details.forEach(function (item) {
 
-            const label = document.createElement("label");
-            label.className = "subservice-option";
+      const originalPrice = parsePrice(item[1]);
+      const discountedPrice = originalPrice * 0.90;
 
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.name = "subService-" + service;
-            
-            const originalPrice = parseFloat(
-                item[1].replace(",", ".").replace(/[^\d.]/g, "")
-            );
+      const label = document.createElement("label");
+      label.className = "subservice-option";
 
-            const discountPrice = originalPrice * 0.90;
+      const checkbox = document.createElement("input");
 
-            checkbox.value =
-                service + " - " +
-                item[0] + " - " +
-                discountPrice.toFixed(2) + " €";
+      checkbox.type = "checkbox";
+      checkbox.name = "subService-" + service;
+      checkbox.value = item[0];
 
-            const text = document.createElement("span");
+      checkbox.dataset.item = JSON.stringify({
+        service: service,
+        name: item[0],
+        originalPrice: originalPrice,
+        discountedPrice: discountedPrice
+      });
 
-            const price = discountPrice
-                .toFixed(2)
-                .replace(".00", "")
-                .replace(".", ",");
+      const text = document.createElement("span");
 
-            text.innerHTML =
-                item[0] +
-                " - <del>" + item[1] + "</del> " +
-                "<strong class=\"discount-price\">" +
-                price +
-                " €</strong>";
+      text.innerHTML =
+        item[0] +
+        ' - <del>' +
+        item[1] +
+        '</del> ' +
+        '<strong class="discount-price">' +
+        formatPrice(discountedPrice) +
+        '</strong>';
 
-            label.appendChild(checkbox);
-            label.appendChild(text);
+      label.appendChild(checkbox);
+      label.appendChild(text);
 
-            box.appendChild(label);
-        });
+      box.appendChild(label);
+
+      checkbox.addEventListener("change", updateTotal);
     });
+  });
+
+  const summary = document.createElement("div");
+
+  summary.id = "priceSummary";
+
+  summary.style.marginTop = "20px";
+  summary.style.padding = "16px";
+  summary.style.borderRadius = "16px";
+  summary.style.background = "#fff4f8";
+  summary.style.border = "1px solid #efd2df";
+
+  box.appendChild(summary);
+
+  updateTotal();
 };
 
-    if (!serviceSelect) {
-        console.log("Service select not found");
-        return;
-    }
+
+document
+  .getElementById("service")
+  .addEventListener("change", showServiceDetails);
 
 
-});
-      /* BOOKING FORM */
-document.getElementById("bookingForm").addEventListener("submit", function(e) {
+showServiceDetails();
+
+
+document
+  .getElementById("bookingForm")
+  .addEventListener("submit", function (e) {
 
     e.preventDefault();
 
+    const serviceSelect =
+      document.getElementById("service");
+
+    const selectedServices =
+      Array.from(serviceSelect.selectedOptions)
+        .map(function (option) {
+          return option.value;
+        })
+        .filter(Boolean);
+
+    const selectedItems = getSelectedItems();
+
     const date =
-        document.getElementById("date").value;
+      document.getElementById("date").value;
 
     const time =
-        document.getElementById("time").value;
+      document.getElementById("time").value;
 
     const name =
-        document.getElementById("name").value;
+      document.getElementById("name").value.trim();
 
     const phone =
-        document.getElementById("phone").value;
+      document.getElementById("phone").value.trim();
 
     const message =
-        document.getElementById("message").value;
+      document.getElementById("message").value.trim();
 
-    /* Get selected services */
-const selectedServices = Array.from(
-    document.getElementById("service").selectedOptions
-)
-.map(option => option.value)
-.filter(value => value);
 
-/* Get ALL selected options */
-const selectedOptions = Array.from(
-    document.querySelectorAll('#serviceDetails input[type="checkbox"]:checked')
-)
-.map(option => option.value);
+    if (selectedServices.length === 0) {
+      alert("Veuillez choisir au moins une prestation.");
+      return;
+    }
 
-/* Calculate total price */
-const total = selectedOptions.reduce((sum, item) => {
-    const originalTotal = selectedOptions.reduce((sum, item) => {
-  const match = item.match(/(\d+(?:[.,]\d+)?)\s*€?/);
-  if (!match) return sum;
 
-  return sum + parseFloat(match[1].replace(",", "."));
-}, 0);
+    if (selectedItems.length === 0) {
+      alert("Veuillez choisir au moins un sous-service.");
+      return;
+    }
 
-const total = originalTotal * 0.90;
-/* Format selected services */
-const servicesText = selectedServices.length > 0
-    ? selectedServices.map(service => "• " + service).join("\n")
-    : "• Aucune prestation sélectionnée";
 
-/* Format selected options with clean names and prices */
-const optionsText = selectedOptions.length > 0
-    ? selectedOptions.map(item => {
-        const parts = item.split(" - ");
-        const optionName = parts.slice(1).join(" - ") || item;
-        return "• " + optionName;
-    }).join("\n")
-    : "• Aucune option sélectionnée";
+    if (!date || !time || !name || !phone) {
+      alert(
+        "Veuillez remplir la date, l'heure, le nom et le téléphone."
+      );
+      return;
+    }
 
-/* Create professional WhatsApp message */
-const text = `🌸 NAYANA BEAUTÉ INDIENNE 🌸
 
-📋 DEMANDE DE RENDEZ-VOUS
+    const originalTotal =
+      selectedItems.reduce(function (total, item) {
+        return total + item.originalPrice;
+      }, 0);
 
-💅 Prestations :
-${servicesText}
 
-✨ Options sélectionnées :
-${optionsText}
+    const discount =
+      originalTotal * DISCOUNT_RATE;
 
-💰 TOTAL : ${total.toFixed(2).replace(".", ",")} €
 
-📅 Date : ${date}
-🕐 Heure : ${time}
+    const total =
+      originalTotal - discount;
 
-👤 Nom : ${name}
-📱 Téléphone : ${phone}
 
-📝 Message :
-${message || "Aucun"}
+    const servicesText =
+      selectedServices
+        .map(function (service) {
+          return "• " + service;
+        })
+        .join("\n");
 
-Merci pour votre réservation 🌸
-À bientôt chez NAYANA Beauté Indienne ❤️`;
 
-/* Open WhatsApp */
-const whatsapp =
-    "https://wa.me/33744895687?text=" +
-    encodeURIComponent(text);
+    const optionsText =
+      selectedItems
+        .map(function (item) {
+          return (
+            "• " +
+            item.name +
+            " — " +
+            formatPrice(item.discountedPrice)
+          );
+        })
+        .join("\n");
 
-window.open(whatsapp, "_blank");
-});
+
+    const whatsappMessage =
+      "🌸 NAYANA BEAUTÉ INDIENNE 🌸\n\n" +
+
+      "📋 DEMANDE DE RENDEZ-VOUS\n\n" +
+
+      "💅 Prestations :\n" +
+      servicesText +
+      "\n\n" +
+
+      "✨ Sous-services :\n" +
+      optionsText +
+      "\n\n" +
+
+      "💰 Prix initial : " +
+      formatPrice(originalTotal) +
+      "\n" +
+
+      "🎁 Réduction 10% : -" +
+      formatPrice(discount) +
+      "\n" +
+
+      "💖 TOTAL À PAYER : " +
+      formatPrice(total) +
+      "\n\n" +
+
+      "📅 Date : " +
+      date +
+      "\n" +
+
+      "🕐 Heure : " +
+      time +
+      "\n\n" +
+
+      "👤 Nom : " +
+      name +
+      "\n" +
+
+      "📱 Téléphone : " +
+      phone +
+      "\n\n" +
+
+      "📝 Message :\n" +
+      (message || "Aucun") +
+      "\n\n" +
+
+      "Merci pour votre réservation 🌸\n" +
+      "À bientôt chez NAYANA Beauté Indienne ❤️";
+
+
+    const whatsapp =
+      "https://wa.me/33744895687?text=" +
+      encodeURIComponent(whatsappMessage);
+
+
+    window.location.href = whatsapp;
+
+  });
 
   </script>
 
