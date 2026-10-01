@@ -375,7 +375,7 @@ window.showServiceDetails = function () {
     selectedOptions.forEach(function (option) {
 
         const service = option.value;
-        const details = serviceDetails[service];
+        const details = window.serviceDetails[service];
 
         if (!details) return;
 
