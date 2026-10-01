@@ -369,8 +369,8 @@ window.showServiceDetails = function () {
 
     box.innerHTML = "";
 
-    const selectedOptions = Array.from(serviceSelect.options)
-        .filter(option => option.selected && option.value !== "");
+    const selectedOptions = Array.from(serviceSelect.selectedOptions)
+  .filter(option => option.value);
 
     selectedOptions.forEach(function (option) {
 
